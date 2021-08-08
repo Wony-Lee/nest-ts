@@ -10,6 +10,7 @@ import {
   Put,
   UseFilters,
 } from '@nestjs/common';
+import { PositiveIntPipe } from 'src/common/Pipe/positiveint.pipe';
 import { HttpExceptionFilter } from 'src/http-exception.filter';
 import { CatsService } from './cats.service';
 
@@ -41,9 +42,10 @@ export class CatsController {
   //cats/:id
   @Get(':id')
   // parseIntPipe는 string으로 넘어오는 파라미터를 number 로 자동변환해준다.
-  getOneCat(@Param('id', ParseIntPipe) param) {
+  getOneCat(@Param('id', ParseIntPipe, PositiveIntPipe) param: number) {
     console.log(param);
     console.log(typeof param);
+    console.log();
     return 'one cat';
   }
 
