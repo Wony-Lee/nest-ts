@@ -9,13 +9,16 @@ import {
   Post,
   Put,
   UseFilters,
+  UseInterceptors,
 } from '@nestjs/common';
 import { PositiveIntPipe } from 'src/common/Pipe/positiveint.pipe';
-import { HttpExceptionFilter } from 'src/http-exception.filter';
+import { HttpExceptionFilter } from 'src/common/exceptions/http-exception.filter';
 import { CatsService } from './cats.service';
+import { SuccessInterceptor } from 'src/common/interceptors/success.interceptor';
 
 @Controller('cats')
-// @UseFilters(HttpExceptionFilter) // 지역사용
+@UseFilters(HttpExceptionFilter) // 지역사용
+@UseInterceptors(SuccessInterceptor)
 export class CatsController {
   constructor(private readonly catsService: CatsService) {}
 
@@ -34,9 +37,9 @@ export class CatsController {
     //   404,
     // );
 
-    throw new HttpException('Page is Not Found ', 401);
-
-    return 'all cat';
+    // throw new HttpException('Page is Not Found ', 401);
+    console.log('hello controller');
+    return { cats: 'get all cat api' };
   }
 
   //cats/:id
