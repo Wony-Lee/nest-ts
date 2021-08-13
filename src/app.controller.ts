@@ -13,6 +13,6 @@ export class AppController {
   @Get()
   getHello() {
     // return this.appService.getHello();
-    return this.catsService.hiCatServiceProduct();
+    return this.catsService;
   }
 }
